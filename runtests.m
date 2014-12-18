@@ -1,6 +1,6 @@
 numberoftests = 50;
-maxfreq = 15000;	#hz
-minfreq = 10000;	#hz
+maxfreq = 20000;	#hz
+minfreq = 0;	#hz
 fs = 48000;		#sampling frequency
 t = 0.1;
 
@@ -14,7 +14,13 @@ endfor
 
 #plot stuff
 #plottrial(trial,1); #plot trial 1 (aka trial{1,1 through 4}) in both time and frequency domains 
-speakerrangetest(fs, trial, .7, .3, .2, .1, .4, .5); #overlay all trials in frequency domain
+speakerrangetest(fs, trial, 1, .5, .5, .5, 1, .5); #overlay all trials in frequency domain
 
 #TODO
 #save data to file
+
+#TODO
+#calculate amplitude difference in time domain signals
+
+#TODO
+#calculate usefule amplitude difference in frequency domain signals
