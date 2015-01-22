@@ -1,4 +1,4 @@
-function [tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t)
+function [pit tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t)
 
 	#generate constant tone at freq
 	[playedtonetime, playedtone] = chirpgen(freq,0,fs,t,0);
@@ -12,6 +12,10 @@ function [tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,fr
 	#toc; #split the timer
 	recordedtonetime = playedtonetime;
 
+	#crop data before converting to frequency domain
+	[pit playedtonetime recordedtonetime playedtone recordedtone] =... 
+		cropdata(playedtonetime, recordedtonetime, playedtone, recordedtone);	
+
 	#convert to frequency domain data
 	[frequenciesplayed, frequenciesplayedamplitude] = time2freq(playedtone,fs);
 	[frequenciesrecorded, frequenciesrecordedamplitude] = time2freq(recordedtone,fs);
@@ -21,6 +25,8 @@ function [tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,fr
 	amplitude = playedtone;
 	frange = frequenciesplayed;
 	fdomain = frequenciesplayedamplitude;
+
+	#this should cut out any issues due to microphone and speaker access misalignment
 
 	tplayedtime 	= playedtonetime;
 	tplayed 	= playedtone;

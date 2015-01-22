@@ -11,11 +11,11 @@ function [t,x] = chirpgen(freq0,freq1,fs,time,switcher)
 	
 	switch (switcher)
 		case 0	#constant held at freq0
-			x = cos(2*pi*freq0*t);		
+			x = sin(2*pi*freq0*t);		
 		case 1	#absolute value of linear sweep from freq0 to freq1
-			x = abs(cos(2*pi*f.*t));#abs
+			x = abs(sin(2*pi*f.*t));#abs
 		case 1.1#linear sweep from freq0 to freq1  
-			x = cos(2*pi*(f.*t)); 
+			x = sin(2*pi*(f.*t)); 
 		otherwise
 			x = zeros(length(time),1);
 	endswitch
