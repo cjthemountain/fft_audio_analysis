@@ -1,7 +1,7 @@
-function [pit tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t)
+function [meanamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t,croptime)
 
-	#generate constant tone at freq
-	[playedtonetime, playedtone] = chirpgen(freq,0,fs,t,0);
+	#generate tones
+	[playedtonetime, playedtone] = chirpgen(freq,0,fs,t,0); #constant tones
 	playedtone = playedtone';
 	playedtonetime = playedtonetime';
 	#playedtone = playedtone/3; #scale generated tone amplitude by 1/3 to avoid clipping if necessary
@@ -14,7 +14,7 @@ function [pit tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrang
 
 	#crop data before converting to frequency domain
 	[pit playedtonetime recordedtonetime playedtone recordedtone] =... 
-		cropdata(playedtonetime, recordedtonetime, playedtone, recordedtone);	
+		cropdata(playedtonetime, recordedtonetime, playedtone, recordedtone, croptime);	
 
 	#convert to frequency domain data
 	[frequenciesplayed, frequenciesplayedamplitude] = time2freq(playedtone,fs);
@@ -37,4 +37,6 @@ function [pit tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrang
 	trec		= recordedtone;
 	frecrange	= frequenciesrecorded(1:length(frequenciesrecorded)/2);
 	frecamp		= frequenciesrecordedamplitude(1:length(frequenciesrecordedamplitude)/2);
+
+	meanamplitude 	= rms(trec)*2^.5;
 endfunction

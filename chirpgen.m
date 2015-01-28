@@ -15,6 +15,7 @@ function [t,x] = chirpgen(freq0,freq1,fs,time,switcher)
 		case 1	#absolute value of linear sweep from freq0 to freq1
 			x = abs(sin(2*pi*f.*t));#abs
 		case 1.1#linear sweep from freq0 to freq1  
+		case 2 #using chirp function
 			x = sin(2*pi*(f.*t)); 
 		otherwise
 			x = zeros(length(time),1);

@@ -1,10 +1,15 @@
-numberoftests = 10;
-maxfreq = 600;	#hz
-minfreq = 400;	#hz
+pkg load aaudio;
+pkg load ltfat;
+pkg load plot;
+
+numberoftests = 4;
+minfreq = 2000;		#hz
+maxfreq = 6000;		#hz
 fs = 48000;		#sampling frequency
-t = 0.75; #seconds to play each tone
-#note: the first .02 seconds will always be cropped from the trial data
-fprintf(1,"samples should total to about %f seconds\n", (t-.02)*numberoftests);
+t = 2; #seconds to play each tone
+croptime = .1; #time to cut from head of each sample
+#note: the trials samples  will always be cropped from the trial data
+fprintf(1,"samples should total to about %f seconds\n", (t-croptime)*numberoftests);
 
 #generate sound wavs
 frequencies = minfreq+(maxfreq-minfreq)/numberoftests:(maxfreq-minfreq)/numberoftests:maxfreq;
@@ -26,7 +31,7 @@ else
 endif
 
 #prep workspace data for save to file
-filedesignation = input("filename: ", "s");
+filedesignation = input("filename to save trial to: ", "s");
 ztime = clock();
 filename = [mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(ztime(3))... 
 	    "_" mat2str(ztime(4)) ":" mat2str(ztime(5)) ":" mat2str(floor(ztime(6)))... 
@@ -35,12 +40,16 @@ filename = [mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(ztime(3))...
 #run tests
 fprintf(1, "running tests... \n");
 for i = 1:numberoftests
-	[pit trial{i,1},trial{i,2},trial{i,3},trial{i,4},...
-	trial{i,5},trial{i,6},trial{i,7},trial{i,8}] = performtrial(frequencies(i),fs,t);
+	[meanamplitudes(i),pit,trial{i,1},trial{i,2},trial{i,3},trial{i,4},...
+	trial{i,5},trial{i,6},trial{i,7},trial{i,8}] = performtrial(frequencies(i),fs,t,croptime);
 endfor
 fprintf("finished trial\n");
 
 #save data to file
+#TODO
+if exist("./trials", "file")!=7
+	mkdir trials
+endif
 cd trials;
 save(filename);
 cd ..;
@@ -57,7 +66,7 @@ fittedtrials = fit2dbaspl(trial);
 #calculate amplitude difference in frequency domain signals
 
 #plot stuff
-plottrial(trial, frequencies,pit,t);
+plottrial(trial,frequencies,pit,t);
 
 fprintf(1, "Done :D\n");
 

@@ -1,4 +1,4 @@
-function [timelost tplayedc trecordedc wavplayedc wavrecordedc] = cropdata(tplayed, trecorded, wavplayed, wavrecorded)
+function [timelost tplayedc trecordedc wavplayedc wavrecordedc] = cropdata(tplayed, trecorded, wavplayed, wavrecorded, time2crop)
 #trim audio sample to cut out any issues due to accessing the microphone and speaker
 #aka cut out sound card issues for cleaner data
 #note: first .01525ish seconds is bunk data regardless of sample length
@@ -8,7 +8,7 @@ function [timelost tplayedc trecordedc wavplayedc wavrecordedc] = cropdata(tplay
 	i=1;
 	pit=0;
 	while (i<size(trecorded,1) && (pit==0))
-		if (trecorded(i)>.02)
+		if (trecorded(i)>time2crop)
 			pit = i;		
 		else
 			i=i+1;

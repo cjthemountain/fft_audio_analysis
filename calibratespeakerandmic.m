@@ -35,7 +35,20 @@ during which you can measure the db spl level\n", numberofsamples, numberofvolum
 	data{2} = meanamplitudes;
 	data{3} = recordedtones;
 
-	#TODO
-	#write calibration to file
+	clear minfreq maxfreq numberofsamples numberofvolumes frequency volumes tones;
+	clear tontimes recordedtones recordedtonetimes meanamplitudes;
 
+	#write calibration to file
+	if exist("./calibrations","file")!=7
+		mkdir calibrations
+	endif
+	cd calibrations
+	ztime = clock();
+	filename = [mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(ztime(3))... 
+            "_" mat2str(ztime(4)) ":" mat2str(ztime(5)) ":" mat2str(floor(ztime(6)))...
+	    "-" "calibration" ".m"];
+	save(filename, "data");
+	cd ..;
+	fprintf(1, "saved %s\n", filename);
+	clear all;
 endfunction

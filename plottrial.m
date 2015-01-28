@@ -1,4 +1,5 @@
 function void = plottrial(trials, frequencies, pit, sampleduration)
+#function void = plottrial(trials, frequencies, pit, sampleduration)
 # plots trialnumber from trials. plotwhat can be 
 # fr   = frequency response
 # wav  = raw wav
@@ -103,20 +104,24 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 		playedfreqamp	= trials{1,6};
 		recfreqrange	= trials{1,7};
 		recfreqamp	= trials{1,8};
+		#frequency amplitudes should be summed, not concatenated
+		for i = 2:size(trials,1)
+			recfreqamp 	= recfreqamp 	+ trials{i,8};
+			playedfreqamp 	= playedfreqamp + trials{i,6};
+		endfor
 		
 		#append all trials into big vectors
 		#and realign times to be sequential
 		for i=2:size(trials,1)
-#TODO	need to shift frequency x axis on each subsequent sample
 			# assign local variables based on trial selection 
-			playedtonetime 	= [playedtonetime; (trials{i,1}+(sampleduration*i-pit)-sampleduration)]; 
-			recordedtonetime= [recordedtonetime; (trials{i,3}+(sampleduration*i-pit)-sampleduration)];
-			playedtone 	= [playedtone; trials{i,2}];
-			recordedtone	= [recordedtone; trials{i,4}];
-			playedfreqrange	= [playedfreqrange; trials{i,5}];
-			recfreqrange	= [recfreqrange; trials{i,7}];
-			playedfreqamp	= [playedfreqamp; trials{i,6}];
-			recfreqamp	= [recfreqamp; trials{i,8}];
+			playedtonetime 	 = [playedtonetime;	trials{i,1}+sampleduration*i-sampleduration ]; 
+			recordedtonetime = [recordedtonetime;	trials{i,3}+sampleduration*i-sampleduration ];
+			playedtone 	 = [playedtone;		trials{i,2}];
+			recordedtone	 = [recordedtone; 	trials{i,4}];
+			#playedfreqrange = [playedfreqrange; trials{i,5}];
+			#recfreqrange	 = [recfreqrange; trials{i,7}];
+			#playedfreqamp	 = [playedfreqamp; trials{i,6}];
+			#recfreqamp	 = [recfreqamp; trials{i,8}];
 		endfor	
 
 		switch plotwhat
@@ -126,7 +131,7 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 				hold on;
 				#plot(playedtonetime, playedtone, 'color', [rand() rand() rand()]);
 				plot(recordedtonetime, recordedtone, 'color', [rand() rand() rand()]);
-				title("time domain");
+				title("recorded data time domain");
 				xlabel("time (sec)");
 				ylabel("amplitude (d2a)");
 				#legend("played", "recorded");
@@ -137,7 +142,7 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 				hold on;
 				#plot(playedfreqrange, playedfreqamp,'color', [rand() rand() rand()]);
 				plot(recfreqrange,recfreqamp, 'color', [rand() rand() rand()]);
-				title("frequency domain");
+				title("recorded data frequency domain");
 				xlabel("frequency");
 				ylabel("amplitude");
 				#legend("played", "recorded");
