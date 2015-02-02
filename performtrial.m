@@ -1,7 +1,7 @@
 function [meanamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t,croptime)
 
 	#generate tones
-	[playedtonetime, playedtone] = chirpgen(freq,0,fs,t,0); #constant tones
+	[playedtonetime, playedtone] = wavegen(freq,0,fs,t,'constant'); #constant tones
 	playedtone = playedtone';
 	playedtonetime = playedtonetime';
 	#playedtone = playedtone/3; #scale generated tone amplitude by 1/3 to avoid clipping if necessary
@@ -25,8 +25,6 @@ function [meanamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplay
 	amplitude = playedtone;
 	frange = frequenciesplayed;
 	fdomain = frequenciesplayedamplitude;
-
-	#this should cut out any issues due to microphone and speaker access misalignment
 
 	tplayedtime 	= playedtonetime;
 	tplayed 	= playedtone;

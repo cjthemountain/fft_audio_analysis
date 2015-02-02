@@ -3,8 +3,8 @@ pkg load ltfat;
 pkg load plot;
 
 numberoftests = 2;
-minfreq = 10000;	#hz
-maxfreq = 12000;	#hz
+minfreq = 0;	#hz
+maxfreq = 10;	#hz
 fs = 48000;		#sampling frequency
 t = .5; #seconds to play each tone
 croptime = .1; #time to cut from head of each sample
