@@ -25,12 +25,14 @@ function a = comparemeans(varargin)
 		endswitch
 		a{i} = load(varargin{i});
 		fprintf(1,"loaded %s\n", varargin{i});
-		plot(a{i}.frequencies, a{i}.meanamplitudes, '--', 'color', [r g b]);
+		#plot(a{i}.frequencies, a{i}.meanamplitudes, '--', 'color', [r g b]);
+		dbfp = amplitude2db(a{i}.meanamplitudes);
+		plot(a{i}.frequencies, dbfp, '--', 'color', [r g b]);
 	endfor
 	legend(varargin{1}, varargin{2});
 	xlabel("frequency");
-	ylabel("amplitude");
+	ylabel("amplitude (floating point dB)");
 	fprintf(1, "finished plotting\n");
-	figure();
-	plot(a{1}.frequencies, (a{2}.meanamplitudes-a{1}.meanamplitudes), 'ko');
+	#figure();
+	#plot(a{1}.frequencies, (a{2}.meanamplitudes-a{1}.meanamplitudes), 'ko');
 endfunction

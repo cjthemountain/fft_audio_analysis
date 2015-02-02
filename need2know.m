@@ -4,8 +4,13 @@ function void = need2know(varargin)
 	for j=1:nargin
 		load(varargin{j});
 		filepath = [varargin{j} "_trimmed"];
-		recordedwaves = trial{:,4};
-		save(filepath, "recordedwaves", "frequencies", "meanamplitudes");
+		recordedwaves = trials{:,4};
+		#convert floating point to power representation
+		#Vmax mic is ~1.1V(?), mic resistance 275ohms, P = V^2/R  so...	
+		for i=1:length(recordedwaves)
+			pelec(i) = recordedwaves(i)^2/275; #electrical power
+		endfor
+		save(filepath, "recordedwaves", "frequencies", "meanamplitudes", "pelec");
 		clear recordedwaves frequencies meanamplitudes
 	endfor
 

@@ -112,7 +112,7 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 		
 		#append all trials into big vectors
 		#and realign times to be sequential
-		for i=2:size(trials,1)
+			for i=2:size(trials,1)
 			# assign local variables based on trial selection 
 			playedtonetime 	 = [playedtonetime;	trials{i,1}+sampleduration*i-sampleduration ]; 
 			recordedtonetime = [recordedtonetime;	trials{i,3}+sampleduration*i-sampleduration ];
@@ -130,7 +130,7 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 				subplot(2,1,1);
 				hold on;
 				#plot(playedtonetime, playedtone, 'color', [rand() rand() rand()]);
-				plot(recordedtonetime, recordedtone, 'color', [rand() rand() rand()]);
+				plot(recordedtonetime, recordedtone, 'color', [1 0 0]);
 				title("recorded data time domain");
 				xlabel("time (sec)");
 				ylabel("amplitude (d2a)");
@@ -140,19 +140,31 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 				#plot the frequency domain data
 				subplot(2,1,2);
 				hold on;
-				#plot(playedfreqrange, playedfreqamp,'color', [rand() rand() rand()]);
-				plot(recfreqrange,recfreqamp, 'color', [rand() rand() rand()]);
-				title("recorded data frequency domain");
+				m=1;	
+				for n=1:length(frequencies)
+					markersx(m)	=frequencies(n);
+					markersx(m+1)	=frequencies(n);
+					markersy(m)	=0;
+					markersy(m+1)	=max(playedfreqrange);
+					m=m+2;
+				endfor	
+				for m=1:2:length(markersx)-1
+					plot([markersx(m) markersx(m+1)],[markersy(m) markersy(m+1)], 'g--');
+				endfor
+				plot(playedfreqrange, playedfreqamp,'color', [0 0 0]);
+				plot(recfreqrange,recfreqamp, 'color', [1 0 0]);
+				markersx
+				markersy
 				xlabel("frequency");
 				ylabel("amplitude");
-				#legend("played", "recorded");
+				legend("frequency list", "frequency list", "wav played", "wav recorded");
 				hold off;
 				x = 0;
 			case "fr"
 				#plot the frequency domain data
 				hold on;
-				#plot(playedfreqrange, playedfreqamp,'color', [rand(), rand() rand()]);
-				plot(recfreqrange,recfreqamp,'color', [rand() rand() rand()]);
+				#plot(playedfreqrange, playedfreqamp,'color', [0 0 0]);
+				plot(recfreqrange,recfreqamp,'color', [1 1 1]);
 				title("frequency domain");
 				xlabel("frequency");
 				ylabel("amplitude");

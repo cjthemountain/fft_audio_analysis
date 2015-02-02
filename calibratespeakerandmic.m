@@ -1,4 +1,4 @@
-function data  = calibratespeakerandmic()
+function data  = calibratespeakerandmic(time2crop)
 	minfreq = input("minimum frequency? ");
 	maxfreq = input("maximum frequency? ");
 	numberofsamples = input("how many frequency steps would you like to use? ");
@@ -11,7 +11,7 @@ during which you can measure the db spl level\n", numberofsamples, numberofvolum
 	fflush(1);
 	for i=1:numberofsamples
 		clear tonetime tone timelost tplayedc trecordedc wavplayedc wavrecordedc;
-		[tonetime, tone] = chirpgen(frequency(i),0,48000,1,0);
+		[tonetime, tone] = chirpgen(frequency(i),0,48000,5,0);
 		for j=1:length(volumes)
 			#aquire data
 			recordedtone = aplayrec((tone')*volumes(j),1,48000,'default'); 
@@ -19,7 +19,7 @@ during which you can measure the db spl level\n", numberofsamples, numberofvolum
 	
 			#crop bad data out
 			[timelost tonetimec recordedtonetimec tonec recordedtonec] =...
-				 cropdata(tonetime',tonetime',tone',recordedtone);
+				 cropdata(tonetime',tonetime',tone',recordedtone,time2crop);
 
 		#collect the data in a convenient way
 		tones{i,j} = tonec;
