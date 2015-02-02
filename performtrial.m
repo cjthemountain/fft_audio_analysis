@@ -1,4 +1,4 @@
-function [meanamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t,croptime,wavetype)
+function [rmsamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t,croptime,wavetype)
 
 	#generate tones
 	[playedtonetime, playedtone] = wavegen(freq,0,fs,t,wavetype); #constant tones
@@ -35,5 +35,5 @@ function [meanamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplay
 	frecrange	= frequenciesrecorded(1:length(frequenciesrecorded)/2);
 	frecamp		= frequenciesrecordedamplitude(1:length(frequenciesrecordedamplitude)/2);
 
-	meanamplitude 	= rms(trec)*2^.5;
+	rmsamplitude 	= rms(trec)*2^.5;
 endfunction

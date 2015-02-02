@@ -26,7 +26,7 @@ function void = plottrial(trials, frequencies, pit, sampleduration, filename)
 	#plot the time domain data
 	subplot(2,1,1);
 	hold on;
-	#plot(playedtonetime, playedtone, 'color', [rand() rand() rand()]);
+	plot(playedtonetime, playedtone, 'color', [0 0 0]);
 	plot(recordedtonetime, recordedtone, 'color', [1 0 0]);
 	title(filename);
 	xlabel("time (sec)");
