@@ -1,4 +1,4 @@
-function void = autoruntests(minfreq, maxfreq,points,time)
+function void = autoruntests(minfreq, maxfreq,points,time,wavetype)
 	numberoftests = points;
 	#minfreq = 20;		#hz
 	#maxfreq = 20000;	#hz
@@ -22,7 +22,7 @@ function void = autoruntests(minfreq, maxfreq,points,time)
 	for i = 1:numberoftests
 		fprintf(1,"running %f Hz\n", frequencies(i));fflush(1);
 		[meanamplitudes(i),pit,trials{i,1},trials{i,2},trials{i,3},trials{i,4},...
-		trials{i,5},trials{i,6},trials{i,7},trials{i,8}] = performtrial(frequencies(i),fs,t,croptime);
+		trials{i,5},trials{i,6},trials{i,7},trials{i,8}] = performtrial(frequencies(i),fs,t,croptime,wavetype);
 	endfor
 	fprintf("finished trials\n");
 
@@ -43,7 +43,5 @@ function void = autoruntests(minfreq, maxfreq,points,time)
 	meandbamplitudes = amplitude2db(meanamplitudes);
 	fprintf(1,"converted meanamplitudes to meandbamplitudes\n"); 
 	autoplottrial(trials,frequencies,pit,t,filename);
-	fprintf(1, "clearing all variables from workspace\n");
-	clear all;
 	fprintf(1, "Done :D\n");
 endfunction

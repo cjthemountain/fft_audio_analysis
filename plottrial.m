@@ -4,7 +4,9 @@ function void = plottrial(trials, frequencies, pit, sampleduration)
 # fr   = frequency response
 # wav  = raw wav
 # both = frequency response and raw wav	
-
+	if nargin<4
+		fprintf(1,'ERROR: you need 4 arguments, plottrial(trials,frequencies,pit,sampleduration)\n');
+	endif
 
 	plotem=0; 
 	while (plotem==0 || (plotem!=1 && plotem!=2)) 
@@ -129,7 +131,7 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 				#plot the time domain data
 				subplot(2,1,1);
 				hold on;
-				#plot(playedtonetime, playedtone, 'color', [rand() rand() rand()]);
+				plot(playedtonetime, playedtone, 'color', [0 0 0]);
 				plot(recordedtonetime, recordedtone, 'color', [1 0 0]);
 				title("recorded data time domain");
 				xlabel("time (sec)");
@@ -174,8 +176,8 @@ wav = raw wav\n\tboth = frequency response and raw wav\n", "s");
 			case "wav"
 				#plot the time domain data
 				hold on;
-				#plot(playedtonetime, playedtone, 'color', [rand() rand() rand()]);
-				plot(recordedtonetime, recordedtone, 'color', [rand() rand() rand()]);
+				plot(playedtonetime, playedtone, 'color', [0 0 0]);
+				plot(recordedtonetime, recordedtone, 'color', [1 0 0]);
 				title("time domain");
 				xlabel("time (sec)");
 				ylabel("amplitude (d2a)");

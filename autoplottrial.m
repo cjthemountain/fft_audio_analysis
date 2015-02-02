@@ -45,14 +45,14 @@ function void = plottrial(trials, frequencies, pit, sampleduration, filename)
 		markersy(m+1)	=max(playedfreqrange);
 		m=m+2;
 	endfor	
+	plot(playedfreqrange, playedfreqamp,'color', [0 0 0]);
+	plot(recfreqrange,recfreqamp, 'color', [1 0 0]);
 	for m=1:2:length(markersx)-1
 		plot([markersx(m) markersx(m+1)],[markersy(m) markersy(m+1)], 'g--');
 	endfor
-	plot(playedfreqrange, playedfreqamp,'color', [0 0 0]);
-	plot(recfreqrange,recfreqamp, 'color', [1 0 0]);
 	xlabel("frequency");
 	ylabel("amplitude");
-	legend("frequency list", "frequency list", "wav played", "wav recorded");
+	legend("wav played", "wav recorded", "frequencies played");
 	hold off;
 	x = 0;
 

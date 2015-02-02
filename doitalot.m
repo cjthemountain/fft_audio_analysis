@@ -1,6 +1,7 @@
 pkg load aaudio;
 pkg load ltfat;
 pkg load plot;	
+pkg load signal;
 
 points = 10;
 lowfreq = 20;
@@ -13,6 +14,7 @@ period = .2;
 for j=1:repeats
 	for i=1:segments
 		fprintf(1,"current frequency range [%d\t%d]\n",currentfrequency(i), currentfrequency(i+1));
-		autoruntests(currentfrequency(i),currentfrequency(i+1),points/segments,period)
+		autoruntests(currentfrequency(i),currentfrequency(i+1),points/segments,period,'chirps')
+		#clear all;
 	endfor
 endfor	

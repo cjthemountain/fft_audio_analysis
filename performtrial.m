@@ -1,20 +1,19 @@
-function [meanamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t,croptime)
+function [meanamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t,croptime,wavetype)
 
 	#generate tones
-	[playedtonetime, playedtone] = wavegen(freq,0,fs,t,'constant'); #constant tones
+	[playedtonetime, playedtone] = wavegen(freq,0,fs,t,wavetype); #constant tones
 	playedtone = playedtone';
 	playedtonetime = playedtonetime';
-	#playedtone = playedtone/3; #scale generated tone amplitude by 1/3 to avoid clipping if necessary
 
 	#play audio through speaker and record output
-	#tic; #start a timer
 	recordedtone = aplayrec(playedtone,1,fs,'default');
-	#toc; #split the timer
 	recordedtonetime = playedtonetime;
 
 	#crop data before converting to frequency domain
-	[pit playedtonetime recordedtonetime playedtone recordedtone] =... 
-		cropdata(playedtonetime, recordedtonetime, playedtone, recordedtone, croptime);	
+	if strcmp(wavetype,'constant')!=1
+		[pit playedtonetime recordedtonetime playedtone recordedtone] =... 
+			cropdata(playedtonetime, recordedtonetime, playedtone, recordedtone, croptime);	
+	endif
 
 	#convert to frequency domain data
 	[frequenciesplayed, frequenciesplayedamplitude] = time2freq(playedtone,fs);
