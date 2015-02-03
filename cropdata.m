@@ -1,31 +1,17 @@
-function [timelost tplayedc trecordedc wavplayedc wavrecordedc] = cropdata(tplayed, trecorded, wavplayed, wavrecorded, time2crop)
+function [p,r] = cropdata(pt,p,r,time2crop)
 #trim audio sample to cut out any issues due to accessing the microphone and speaker
 #aka cut out sound card issues for cleaner data
 #note: first .01525ish seconds is bunk data regardless of sample length
-# will cut first .02 seconds from all samples
-#VERIFY: there is probably a time shift between signal out and signal in
-	#find .02 seconds
+#TODO: VERIFY: there is possible a time shift between signal out and signal in
 	i=1;
 	pit=0;
-	while (i<size(trecorded,1) && (pit==0))
-		if (trecorded(i)>time2crop)
-			pit = i;		
+	while (i<size(pt,2))
+		if pt(i)<time2crop
+			p(i) = 0;
+			r(i) = 0;	
+			i = i+1;
 		else
-			i=i+1;
+			i = i+1;
 		endif
 	endwhile
-	
-	#crop out first ~.02 seconds from all samples
-	tplayedc = tplayed(pit:end);
-	trecordedc = trecorded(pit:end);
-	wavplayedc = wavplayed(pit:end);
-	wavrecordedc = wavrecorded(pit:end);
-	
-	timelost = trecorded(pit);
-
-	for i=1:size(tplayedc,1)
-		tplayedc(i) = tplayedc(i)-tplayed(pit);
-		trecordedc(i) = trecordedc(i) - trecorded(pit);
-	endfor
-
 endfunction

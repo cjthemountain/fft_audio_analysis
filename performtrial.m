@@ -1,39 +1,13 @@
-function [rmsamplitude,pit,tplayedtime,tplayed,trectime,trec,fplayedrange,fplayedamp,frecrange,frecamp] = performtrial(freq, fs, t,croptime,wavetype)
-
-	#generate tones
-	[playedtonetime, playedtone] = wavegen(freq,0,fs,t,wavetype); #constant tones
-	playedtone = playedtone';
-	playedtonetime = playedtonetime';
+function data = performtrial(p,fs)
 
 	#play audio through speaker and record output
-	recordedtone = aplayrec(playedtone,1,fs,'default');
-	recordedtonetime = playedtonetime;
-
-	#crop data before converting to frequency domain
-	if strcmp(wavetype,'constant')!=1
-		[pit playedtonetime recordedtonetime playedtone recordedtone] =... 
-			cropdata(playedtonetime, recordedtonetime, playedtone, recordedtone, croptime);	
-	endif
+	r = aplayrec(p',1,fs,'default');
+	data{5} = r;  #recorded amplitude vector
 
 	#convert to frequency domain data
-	[frequenciesplayed, frequenciesplayedamplitude] = time2freq(playedtone,fs);
-	[frequenciesrecorded, frequenciesrecordedamplitude] = time2freq(recordedtone,fs);
-	frequenciesplayed = frequenciesplayed';
-	
-	time = playedtonetime;
-	amplitude = playedtone;
-	frange = frequenciesplayed;
-	fdomain = frequenciesplayedamplitude;
+	[data{1},data{2}] = time2freq(p,fs);
+	[data{3},data{4}] = time2freq(r,fs);
+	#something prolly needs to be 'd here	
+	#consider cropping fft down to 0-20Khz
 
-	tplayedtime 	= playedtonetime;
-	tplayed 	= playedtone;
-	fplayedrange	= frequenciesplayed(1:length(frequenciesplayed)/2);
-	fplayedamp	= frequenciesplayedamplitude(1:length(frequenciesplayedamplitude)/2);
-	
-	trectime	= recordedtonetime; 
-	trec		= recordedtone;
-	frecrange	= frequenciesrecorded(1:length(frequenciesrecorded)/2);
-	frecamp		= frequenciesrecordedamplitude(1:length(frequenciesrecordedamplitude)/2);
-
-	rmsamplitude 	= rms(trec)*2^.5;
 endfunction

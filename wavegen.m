@@ -1,5 +1,5 @@
-function [t,x] = wavegen(freq0,freq1,fs,time,switcher)
-#switcher must be 'constant', 'abssweep','linearsweep','chirps', or 'whitenoise'
+function [x] = wavegen(freq0,freq1,fs,time,switcher)
+#switcher must be 'constant', 'abssweep','linearsweep','chirps', or 'whitenoise', 'loadwave'
 	if (nargin!=5)
 		fprintf(1,"requires 5 args. chirpgen(freq0,freq1,fs,time, switch)\n");
 		x = -1;
@@ -21,6 +21,8 @@ function [t,x] = wavegen(freq0,freq1,fs,time,switcher)
 		case 'chirps' 		#using chirp function, phase shift to sine
 			x = chirp(t,freq0,max(t),freq1,'linear',pi/2); 
 		case 'whitenoise'		#generate white noise
+			fprintf(1,"ERROR: white noise not yet implemented\n");
+		case 'loadwave'
 			fprintf(1,"ERROR: white noise not yet implemented\n");
 		otherwise
 			x = zeros(length(time),1);
