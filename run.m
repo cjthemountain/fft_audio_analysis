@@ -10,18 +10,21 @@ pkg load plot;
 pkg load signal;
 clear all;
 
-points = 5; #number of points to test between high and low freq
+points = 20; 
 minfreq = 20;
-maxfreq = 200;
+maxfreq = 20000;
 fs = 48000;
-tconstant = .25;
-tsweep = 1;
+tsweep = 20;
+tconstant = tsweep/points;
 croptime = .1; #for constant tones, cut out croptime  bad data from head
+tconstant=tconstant+croptime;
 frequencies = minfreq:(maxfreq-minfreq)/points:maxfreq;
 plotnumber = 1;
 descriptor = "";
 
 while (length(descriptor)==0)
+	fprintf(1,"please enter the material identifier. This should be unique to the sample.\n");
+	fflush(1);
 	descriptor = input("sample descriptor: ", 's');
 endwhile
 
@@ -37,7 +40,7 @@ for i=1:length(frequencies)
 	amplitudes{i} = wavegen(frequencies(i),0,fs,tconstant,'constant');
 	times = 1/fs:1/fs:tconstant; #all time vectors should be identical, use this one
 	freqdata{i} = performtrial(amplitudes{i},fs);
-	meanamplitude{i} = rms(freqdata{i}{5})*2^.5;
+	meanamplitude(i) = rms(freqdata{i}{5})*2^.5;
 endfor
 
 ztime = clock();

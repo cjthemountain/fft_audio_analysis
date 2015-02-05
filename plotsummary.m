@@ -52,6 +52,8 @@ function handle = plotsummary(frequencies,times,amplitudes,data,fs,time2crop,fil
 			plot([markersx(m) markersx(m+1)],[markersy(m) markersy(m+1)], 'g--');
 		endfor
 		axis([min(markersx) max(markersx)]);
+	else
+		axis([-1 20001]);
 	endif
 	xlabel("frequency");
 	ylabel("amplitude");

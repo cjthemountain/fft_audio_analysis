@@ -1,38 +1,35 @@
-function a = comparemeans(varargin)
+function handle = comparemeans(handle)
 
-#function a = comparemeans(varargin)
-#compare mean frequency amplitudes across multiple trials
-#use: something = comparesamples(experiment_filepath, experiment_filepath, ...)
-#a{i} containts a structure for each i containing the workspace of each filepath
-#each filepath should point to an octave-workspace .m file containing
-#frequencies vector, meanamplitudes vector
-	if (nargin<2)
-		fprintf(1, "you need at least 2 mfiles\n");
+#function a = comparemeans(handle)
+#compares all "constant" trials mean amplitudes @ each frequencies on a single plot
+#assumes all octave workspace saves files are in ./trials
+#handle is current plot number
+	handle = handle+1;
+	figure(handle); hold on;
+	if (nargin<1)
+		fprintf(1, "pass in the current plot number plot handle will be assumed as 1\n");
+		handle=1;
 	endif
-	plottitle = "";
-	figure();
-	hold on;
-	for i=1:nargin
-		switch i
-			case 1
-				r=1; g=0; b=0;
-			case 2
-				r=0; g=1; b=0;
-			case 3
-				r=0; g=0; b=1;
-			otherwise
-				r = rand(); g = rand(); b = rand();
-		endswitch
-		a{i} = load(varargin{i});
-		fprintf(1,"loaded %s\n", varargin{i});
-		#plot(a{i}.frequencies, a{i}.meanamplitudes, '--', 'color', [r g b]);
-		dbfp = amplitude2db(a{i}.meanamplitudes);
-		plot(a{i}.frequencies, dbfp, '--', 'color', [r g b]);
+
+	if (exist("./trials", "file")!=7)
+		fprintf(1, "there is no trials folder\n");
+		fprintf(1, "run a test and try again\n");
+		fflush(1);
+		error("foo");
+	endif
+	files = dir("./trials/*constant.m");
+	for i=1:size(files,1) #for each file
+		fprintf(1, "loading file %s\n", ["./trials/" files(i).name]);fflush(1);
+		temp = load(["trials/" files(i).name]);		
+		fprintf(1,"attempting to plot\n");fflush(1);
+		plot(temp.frequencies, temp.meanamplitude, 'color', [rand() rand() rand()]);	
+		legs{i} = temp.descriptor;
+		fprintf(1, "this legend entry will be %s\n", legs{i});
+		clear temp;
 	endfor
-	legend(varargin{1}, varargin{2});
-	xlabel("frequency");
-	ylabel("amplitude (floating point dB)");
-	fprintf(1, "finished plotting\n");
-	#figure();
-	#plot(a{1}.frequencies, (a{2}.meanamplitudes-a{1}.meanamplitudes), 'ko');
+	legend(legs);
+	xlabel('frequencies');
+	ylabel('floating point amplitude');
+	title('mean amplitudes via rms*sqrt(2)');
+	axis([-1 20001]);
 endfunction
