@@ -29,11 +29,6 @@ while (length(descriptor)==0)
 	descriptor = input("sample descriptor: ", 's');
 endwhile
 
-#TODO
-#generate/load tones
-#run trials
-#save 
-
 #run the various sound tests
 #constant
 #sinesweep
