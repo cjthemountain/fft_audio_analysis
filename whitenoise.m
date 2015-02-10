@@ -3,8 +3,8 @@ fprintf(1,"\nwhite noise\n");fflush(1);
 fprintf("frequency range =  [%f %f]\n",min(frequencies), max(frequencies));fflush(1); 
 amplitudes{1}  = wavegen(0,20000,fs,10,'whitenoise'); 
 amplitudes{1} = amplitudes{1}'; 
-times = 1/fs_sample:1/fs_sample:(size(amplitudes{1},2)/fs_sample); 
-freqdata{1} = performtrial(amplitudes{1},fs_sample); 
+times = 1/fs:1/fs:(size(amplitudes{1},2)/fs); 
+freqdata{1} = performtrial(amplitudes{1},fs); 
 meanamplitude{1} = rms(freqdata{1}{5})*2^.5; 
  
 ztime = clock(); 
