@@ -12,7 +12,7 @@ filename = [descriptor "-" mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(z
             "_" mat2str(ztime(4)) ":" mat2str(ztime(5)) ":" mat2str(floor(ztime(6))) ... 
             "-whitenoise" ".m"]; 
  
-plotnumber = plotsummary(frequencies,times,amplitudes,freqdata,fs_sample,0,filename, plotnumber); 
+plotnumber = plotsummary(frequencies,times,amplitudes,freqdata,fs,0,filename, plotnumber); 
  
 fprintf(1,"saving data to file: %s\n",filename);fflush(1); 
 if exist("./trials", "file")!=7 

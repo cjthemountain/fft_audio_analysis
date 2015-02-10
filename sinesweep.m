@@ -4,7 +4,7 @@ fprintf("frequency range =  [%f %f]\n",min(frequencies), max(frequencies));fflus
 amplitudes{1} = wavegen(min(frequencies),max(frequencies),fs,tsweep,'linearsweep');
 times = 1/fs:1/fs:tsweep; 
 freqdata{1} = performtrial(amplitudes{1},fs);
-meanamplitude{1} = rms(freqdata{1}{5})*2^.5;
+meanamplitude(1) = rms(freqdata{1}{5})*2^.5;
 
 ztime = clock();
 filename = [descriptor "-" mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(ztime(3)) ... 

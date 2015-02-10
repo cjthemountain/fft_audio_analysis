@@ -30,7 +30,7 @@ while (length(descriptor)==0)
 endwhile
 
 #run the various sound tests
-#constant
-#sinesweep
-#737noise
+constant
+sinesweep
 whitenoise
+#737noise
