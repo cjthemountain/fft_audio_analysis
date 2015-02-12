@@ -47,14 +47,14 @@ function handle = plotsummary(frequencies,times,amplitudes,data,fs,time2crop,fil
 	hold on;
 	plot(data{1}{1}, data{1}{2},'color', [0 0 0]); #played frequencies black
 	plot(data{1}{1}, data{1}{4},'color', [1 0 0]); #recorded frequencies red
-	if (time2crop!=0) #highlight played frequencies in green --
-		for m=1:2:length(markersx)-1
-			plot([markersx(m) markersx(m+1)],[markersy(m) markersy(m+1)], 'g--');
-		endfor
-		axis([min(markersx) max(markersx)]);
-	else
-		axis([-1 20001]);
-	endif
+	#if (time2crop!=0) #highlight played frequencies in green --
+	#	for m=1:2:length(markersx)-1
+	#		plot([markersx(m) markersx(m+1)],[markersy(m) markersy(m+1)], 'g--');
+	#	endfor
+	#	axis([min(markersx) max(markersx)]);
+	#else
+	#	axis([-1 20001]);
+	#endif
 	xlabel("frequency");
 	ylabel("amplitude");
 	legend("wav played", "wav recorded");
