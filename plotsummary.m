@@ -45,8 +45,8 @@ function handle = plotsummary(frequencies,times,amplitudes,data,fs,time2crop,fil
 	#plot the frequency domain data
 	subplot(2,1,2);
 	hold on;
-	plot(data{1}{1}, data{1}{2},'color', [0 0 0]); #played frequencies black
-	plot(data{1}{1}, data{1}{4},'color', [1 0 0]); #recorded frequencies red
+	plot(data{1}{1}, abs(data{1}{2}),'color', [0 0 0]); #played frequencies black
+	plot(data{1}{1}, abs(data{1}{4}),'color', [1 0 0]); #recorded frequencies red
 	#if (time2crop!=0) #highlight played frequencies in green --
 	#	for m=1:2:length(markersx)-1
 	#		plot([markersx(m) markersx(m+1)],[markersy(m) markersy(m+1)], 'g--');

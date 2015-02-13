@@ -5,7 +5,12 @@ amplitudes{1}  = wavegen(0,20000,fs,tnoise,'whitenoise');
 amplitudes{1} = amplitudes{1}'; 
 times = 1/fs:1/fs:(size(amplitudes{1},2)/fs); 
 freqdata{1} = performtrial(amplitudes{1},fs); 
-meanamplitude{1} = rms(freqdata{1}{5})*2^.5; 
+
+#meanamplitude{1} = rms(freqdata{1}{5})*2^.5; 
+for i=1:35 #each iso 1/3 band 25Hz to 20Khz center frequency 
+	
+	
+endfor
  
 ztime = clock(); 
 filename = [descriptor "-" mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(ztime(3)) ...  
