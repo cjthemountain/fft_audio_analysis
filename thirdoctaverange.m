@@ -1,5 +1,8 @@
 function values = thirdoctaverange(frequency)
 	values.center = -1;
+	values.isonumber = -1;
+	values.hi = -1;
+	values.low = -1;
 	thirdbands = zeros(35,3);
 	thirdbands(20,:) = [1000/2^(1/6) 1000 1000*2^(1/6)];
 	for i=19:-1:1
@@ -17,7 +20,7 @@ function values = thirdoctaverange(frequency)
 			values.low 	= thirdbands(i,1);
 			values.center 	= thirdbands(i,2);
 			values.hi	= thirdbands(i,3); 
-			values.isooctavenumber = i+10;
+			values.isonumber = i+10;
 		endif
 	endfor
 endfunction

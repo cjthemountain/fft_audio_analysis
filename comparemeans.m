@@ -1,17 +1,13 @@
-function handle = comparemeans(handle)
+function handle = comparemeans(type,handle)
 
 #function a = comparemeans(handle)
-#compares all "constant" trials mean amplitudes @ each frequencies on a single plot
+#compares all "constant" or "whitenoise" trials mean amplitudes @ each frequencies on a single plot
 #assumes all octave workspace saves files are in ./trials
 #handle is current plot number
-	if nargin!=1
-		handle=3;
-	endif
-	handle = handle+1;
 	figure(handle); hold on;
 	if (nargin<1)
-		fprintf(1, "no plot handle passed in. Assumed to be 3, iterating to 4\n");
-		handle=1;
+		fprintf(1, "no plot handle passed in. Assumed to be 4, iterating to 5\n");
+		handle=5;
 	endif
 
 	if (exist("./trials", "file")!=7)
@@ -33,4 +29,6 @@ function handle = comparemeans(handle)
 	ylabel('floating point amplitude');
 	title('mean amplitudes via rms*sqrt(2)');
 	axis([-1 20001]);
+		
+	handle = handle+1;
 endfunction
