@@ -22,13 +22,18 @@ for i=1:40
 	sorted{i}=[];
 endfor
 
+fprintf(1,"size of freqdata{1}{4},1: %d\n", size(freqdata{1}{4},1));
 for i=1:size(freqdata{1}{4},1) #for each frequency in the fft
-	values = thirdoctaverange(freqdata{1}{4}(i));
+	temp = real(freqdata{1}{4}(i));
+	values = thirdoctaverange(temp);
 	z = values.isonumber-10;
 	if z>0
 		sorted{z} = [sorted{z}; freqdata{1}{4}(i)];
 	endif
+	fprintf(1,"hi: %f\tlow: %f\tactual: %f\t i: %d\t\n",values.hi, values.low,temp,i);
+	fflush(1);
 endfor
+
 for i=1:length(sorted)
 	sorted{i} = ifft(sorted{i});
 	meanmplitude{i} = rms(sorted{i})*2^.5;
