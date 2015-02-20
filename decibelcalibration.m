@@ -1,4 +1,4 @@
-function void  = calibratespeakerandmic(time2crop)
+function void  = decibelcalibration(time2crop)
 	pkg load communications;
 	pkg load signal;
 	minfreq = input("minimum frequency? ");
