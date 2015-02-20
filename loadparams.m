@@ -16,7 +16,7 @@ minfreq = 20;
 maxfreq = 21000;
 fs = 48000;
 tsweep = 30;
-tnoise = 1;
+tnoise = .2;
 tconstant = 1;
 croptime = .1; #for constant tones, cut out croptime  bad data from head
 tconstant=tconstant+croptime;
@@ -29,11 +29,3 @@ while (length(descriptor)==0)
 	fflush(1);
 	descriptor = input("sample descriptor: ", 's');
 endwhile
-
-#run the various sound tests
-#constant
-#sinesweep
-whitenoise
-#noise737
-
-clear all;

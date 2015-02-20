@@ -5,8 +5,10 @@ function handle = comparemeans(type,handle)
 #assumes all octave workspace saves files are in ./trials
 #handle is current plot number
 	figure(handle); hold on;
-	if (nargin<1)
+	if (nargin<2)
+		fprintf(1, "incorrect number of input arguments\n");
 		fprintf(1, "no plot handle passed in. Assumed to be 4, iterating to 5\n");
+		fflush(1);
 		handle=5;
 	endif
 
@@ -16,17 +18,30 @@ function handle = comparemeans(type,handle)
 		fflush(1);
 		error("foo");
 	endif
-	files = dir("./trials/*constant.m");
-	for i=1:size(files,1) #for each file
-		fprintf(1, "loading file %s\n", ["./trials/" files(i).name]);fflush(1);
-		temp = load(["trials/" files(i).name]);		
-		plot(temp.frequencies, temp.meanamplitude, 'color', [rand() rand() rand()]);	
-		legs{i} = temp.descriptor;
-		clear temp;
-	endfor
+	if type=='whitenoise'
+		files = dir("./trials/*whitenoise.m");
+		for i=1:size(files,1) #for each file
+			fprintf(1, "loading file %s\n", ["./trials/" files(i).name]);fflush(1);
+			temp = load(["trials/" files(i).name]);
+			plot(temp.isorange,temp.meanamplitudes, 'color', [rand() rand() rand()]);	
+			legs{i} = temp.descriptor;
+			xlabel('1/3 octave bands by iso standard number');
+			ylabel('floating point amplitude');
+			clear temp;
+		endfor
+	elseif type=='constant'
+		files = dir("./trials/*constant.m");
+		for i=1:size(files,1) #for each file
+			fprintf(1, "loading file %s\n", ["./trials/" files(i).name]);fflush(1);
+			temp = load(["trials/" files(i).name]);		
+			plot(temp.frequencies, temp.meanamplitude, 'color', [rand() rand() rand()]);	
+			legs{i} = temp.descriptor;
+			xlabel('frequencies');
+			ylabel('floating point amplitude');
+			clear temp;
+		endfor
+	endif
 	legend(legs);
-	xlabel('frequencies');
-	ylabel('floating point amplitude');
 	title('mean amplitudes via rms*sqrt(2)');
 	axis([-1 20001]);
 		

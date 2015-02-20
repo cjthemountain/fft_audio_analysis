@@ -24,7 +24,6 @@ for i=1:size(freqdata{1}{4},1) #for each frequency in the fft
 	endif
 	if j==500
 		percentcomplete = i/length(freqdata{1}{4})*100;
-		clc;
 		fprintf(1,"%f%% sorted\t time spent: %f min",percentcomplete, toc/60);fflush(1);
 		j=0;
 	endif
@@ -45,15 +44,14 @@ for i=1:length(meanamplitude)
 		isonumbers(i) = values.isonumber;
 	endif
 endfor
+isorange = linspace(13,max(isonumbers),length(meanamplitudes));
 
 ztime = clock(); 
 filename = [descriptor "-" mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(ztime(3)) ...  
             "_" mat2str(ztime(4)) ":" mat2str(ztime(5)) ":" mat2str(floor(ztime(6))) ... 
             "-whitenoise" ".m"]; 
  
-plotnumber = plotsummary(frequencies,times,amplitudes,freqdata,fs,croptime,filename, plotnumber); 
-figure();
-plot(isonumbers, meanamplitudes, 'k');
+#plotnumber = plotsummary(frequencies,times,amplitudes,freqdata,fs,croptime,filename, plotnumber); 
  
 fprintf(1,"saving data to file: %s\n",filename);fflush(1); 
 if exist("./trials", "file")!=7 
