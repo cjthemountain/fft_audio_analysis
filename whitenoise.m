@@ -22,23 +22,27 @@ for i=1:40
 	sorted{i}=[];
 endfor
 
-fprintf(1,"size of freqdata{1}{4},1: %d\n", size(freqdata{1}{4},1));
 for i=1:size(freqdata{1}{4},1) #for each frequency in the fft
-	temp = real(freqdata{1}{4}(i));
-	values = thirdoctaverange(temp);
+	thisfrequency = freqdata{1}{3}(i);
+	fftdata = freqdata{1}{4}(i);
+	values = thirdoctaverange(thisfrequency);
 	z = values.isonumber-10;
 	if z>0
 		sorted{z} = [sorted{z}; freqdata{1}{4}(i)];
 	endif
-	fprintf(1,"hi: %f\tlow: %f\tactual: %f\t i: %d\t\n",values.hi, values.low,temp,i);
-	fflush(1);
 endfor
 
 for i=1:length(sorted)
-	sorted{i} = ifft(sorted{i});
-	meanmplitude{i} = rms(sorted{i})*2^.5;
+	isorted{i} = ifft(sorted{i});
+	meanamplitude{i} = rms(sorted{i})*2^.5;
 endfor
-				
+
+for i=1:length(meanamplitude)
+	if length(meanamplitude{i})!=0
+		meanamplitudes(i) = meanamplitude{i};
+	endif
+endfor
+
 ztime = clock(); 
 filename = [descriptor "-" mat2str(ztime(1)) "-" mat2str(ztime(2)) "-" mat2str(ztime(3)) ...  
             "_" mat2str(ztime(4)) ":" mat2str(ztime(5)) ":" mat2str(floor(ztime(6))) ... 

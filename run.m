@@ -16,7 +16,7 @@ minfreq = 20;
 maxfreq = 21000;
 fs = 48000;
 tsweep = 30;
-tnoise = .5;
+tnoise = 60;
 tconstant = 1;
 croptime = .1; #for constant tones, cut out croptime  bad data from head
 tconstant=tconstant+croptime;
@@ -31,9 +31,9 @@ while (length(descriptor)==0)
 endwhile
 
 #run the various sound tests
-constant
-sinesweep
+#constant
+#sinesweep
 whitenoise
-noise737
+#noise737
 
 clear all;
