@@ -11,12 +11,14 @@ pkg load signal;
 pkg load communications;
 clear all; close all; clc;
 
+tnoise = 5.0;
+tnum = 5;
+
 points =  20; 
 minfreq = 20;
 maxfreq = 21000;
 fs = 48000;
 tsweep = 30;
-tnoise = .2;
 tconstant = 1;
 croptime = .1; #for constant tones, cut out croptime  bad data from head
 tconstant=tconstant+croptime;
