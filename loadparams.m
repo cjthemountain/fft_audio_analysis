@@ -12,7 +12,7 @@ pkg load communications;
 clear all; close all; clc;
 
 tnoise = 5.0;
-tnum = 5;
+tnum = 1;
 
 points =  20; 
 minfreq = 20;

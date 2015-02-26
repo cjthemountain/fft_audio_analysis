@@ -28,7 +28,7 @@ function handle = countanditeraffect(handle)
 			for j=1:size(subfiles,1)
 				fprintf(1, "loading file %s\n", ["./trials/" files(i).name "/" subfiles(j).name]);fflush(1);
 				temp = load(["./trials/" files(i).name "/" subfiles(j).name]);
-				#temp.ama = temp.ama./temp.tnoise; #normalized to 1 secondof data
+				temp.ama = temp.ama./temp.tnum; #normalized to 1 secondof data
 				plot(linspace(13,13+length(temp.ama),length(temp.ama)), temp.ama, 'color', [rand() rand() rand()]);	
 				legs{i} = temp.descriptor;
 				xlabel('1/3 octave bands by iso standard number');
@@ -40,6 +40,7 @@ function handle = countanditeraffect(handle)
 
 	title('white noise average mean amplitudes across various times and iterations');
 	axis([10 50]);
+	legs
 	legend(legs);
 		
 	handle = handle+1;
