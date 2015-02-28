@@ -11,7 +11,7 @@ pkg load signal;
 pkg load communications;
 clear all; close all; clc;
 
-tnoise = 5.0;
+tnoise = 10.0;
 tnum = 1;
 
 points =  20; 

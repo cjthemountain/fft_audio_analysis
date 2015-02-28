@@ -21,13 +21,13 @@ for s=1:size(files,1)
 endfor
 
 #plot
-fprintf(1, "plotting bar graph\n");
-figure();
-hold on;
-bar(linspace(13,13+length(ama), length(ama)), ama, 'hist');
-xlabel("iso standard 1/3 octave band #");
-ylabel("wave amplitude [-1,1]");
-title("average mean peak amplitudes of white noise data");
+#fprintf(1, "plotting bar graph\n");
+#figure();
+#hold on;
+#bar(linspace(13,13+length(ama), length(ama)), ama, 'hist');
+#xlabel("iso standard 1/3 octave band #");
+#ylabel("wave amplitude [-1,1]");
+#title("average mean peak amplitudes of white noise data");
 
 cd trials;
 mkdir(descriptor);
@@ -37,3 +37,5 @@ save(descriptor);
 cd ../..;
 fprintf(1,"trials took %f minutes overall\n", toc/60);fflush(1);
 
+clear all;close all;
+comparenoise(1);
