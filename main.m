@@ -36,6 +36,7 @@ cd(descriptor);
 save(descriptor);
 cd ../..;
 fprintf(1,"trials took %f minutes overall\n", toc/60);fflush(1);
-
+toc
 clear all;close all;
+
 comparenoise(1);

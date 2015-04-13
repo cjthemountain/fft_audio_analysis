@@ -21,9 +21,9 @@ for i=1:size(freqdata{1}{4},1) #for each frequency in the fft
 	if z>0
 		sorted{z} = [sorted{z}; freqdata{1}{4}(i)];
 	endif
-	if j==500
+	if j==1000
 		percentcomplete = i/length(freqdata{1}{4})*100;
-		fprintf(1,"%f%% sorted\n",percentcomplete);fflush(1);
+		fprintf(1,"%f%% sorted, freq:%dhz of %dhz \n",percentcomplete,freqdata{1}{3}(i), max(freqdata{1}{3}));fflush(1);
 		j=0;
 	endif
 	j++;

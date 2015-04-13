@@ -1,5 +1,6 @@
 function x = wavegen(freq0,freq1,fs,time,switcher)
 #switcher must be 'constant', 'abssweep','linearsweep','chirps', or 'whitenoise', 'loadwave'
+#waveform output is [-1 1]
 	if (nargin!=5)
 		fprintf(1,"requires 5 args. chirpgen(freq0,freq1,fs,time, switch)\n");
 		x = -1;
