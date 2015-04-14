@@ -1,7 +1,7 @@
 #white noise (generated gaussain distribution capped at [-1 1]) 
 fprintf(1,"\nwhite noise\n");fflush(1); 
 fprintf("generating white noise between [%f %f] for %f seconds\n",min(frequencies), max(frequencies), tnoise);fflush(1); 
-amplitudes{1}  = wavegen(0,20000,fs,tnoise,'whitenoise'); 
+amplitudes{1}  = wavegen(0,20000,fs,tnoise,'loadwave'); 
 amplitudes{1} = amplitudes{1}'; 
 times = 1/fs:1/fs:(size(amplitudes{1},2)/fs); 
 fprintf(1,"running trial\n");fflush(1);

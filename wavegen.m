@@ -24,7 +24,8 @@ function x = wavegen(freq0,freq1,fs,time,switcher)
 		case 'whitenoise'		#generate white noise
 			x = noise(time,fs);
 		case 'loadwave'
-			fprintf(1,"ERROR: white noise not yet implemented\n");
+			fprintf(1,"loading saved 10sec gaussian distribution whitenoise file from media folder\n");
+			load("media/whitenoise10sec.m");
 		otherwise
 			x = zeros(length(time),1);
 	endswitch
